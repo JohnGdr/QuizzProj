@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/another_blue"
+    android:orientation="vertical"
+    tools:context=".ChoixQuizz">
+
+    <TextView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quizz"
+        android:textSize="40dp"
+        android:fontFamily="@font/ltcushion_bold"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:paddingBottom="20dp"
+        android:background="@drawable/title_background_border"/>
+
+    <ListView
+        android:id="@+id/listViewQuizz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:clipToPadding="false"
+        tools:listitem="@layout/list_item_layout"/>
+</LinearLayout>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "572679434951",
+    "project_id": "quizz-f0376",
+    "storage_bucket": "quizz-f0376.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572679434951:android:0e8aedb720ddb0a95804e2",
+        "android_client_info": {
+          "package_name": "com.cyliann.quizzproj"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0SS6d_Gx-NESRy0rbDUp26j1_dSnV1Pk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

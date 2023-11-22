@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="8"
+    android:gravity="center"
+    android:background="@color/another_blue">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:adjustViewBounds="true"
+        android:maxWidth="200dp"
+        android:maxHeight="200dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/baseline_quiz_24"/>
+
+    <View
+        android:layout_width="300dp"
+        android:layout_height="2dp"
+        android:background="@android:color/black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="5"
+        android:gravity="center_horizontal|center_vertical">
+
+        <TextView
+            android:id="@+id/maintext"
+            android:layout_width="wrap_content"
+            android:textSize="20dp"
+            android:layout_height="wrap_content"
+            android:text="Renseignez vos logins"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center_horizontal">
+
+            <EditText
+                android:id="@+id/EditText"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:hint="Email"
+                android:textSize="16sp"
+                android:background="@drawable/edittext_border"
+                android:inputType="textEmailAddress"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <EditText
+
+                android:id="@+id/EditText2"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:hint="Mot de passe"
+                android:textSize="16sp"
+                android:inputType="textPassword"
+                android:padding="5dp"
+                android:background="@drawable/edittext_border"/>
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/connectButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Se connecter"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/kind_of_blue"
+            android:layout_gravity="center_horizontal"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/guestButton"
+            android:layout_width="135dp"
+            android:layout_height="wrap_content"
+            android:text="Session invité"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/kind_of_blue"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/signupText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="S'inscrire"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:onClick="onSignupClick"
+            android:background="?android:attr/selectableItemBackground"
+            />
+
+
+    </LinearLayout>
+</LinearLayout>
