@@ -1,6 +1,5 @@
 package com.cyliann.quizzproj
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -17,8 +16,9 @@ class SignupActivity : BaseActivity() {
     fun onFinishSignupClick(v: View){
         val mail = findViewById<EditText>(R.id.EditText).text.toString()
         val mdp = findViewById<EditText>(R.id.EditText2).text.toString()
-        if (mdp.isNotBlank() && mail.isNotBlank()) {
-            registerUser(mail, mdp)
+        val pseudo = findViewById<EditText>(R.id.pseudo).text.toString()
+        if (pseudo.isNotBlank() && mdp.isNotBlank() && mail.isNotBlank()) {
+            registerUser(pseudo, mail, mdp)
         }
         else{
             Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show()

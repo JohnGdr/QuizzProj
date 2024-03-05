@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="100dp"
+    android:background="@drawable/list_item_selector"
+    android:backgroundTint="#B0C4DE"
+    android:weightSum="40"
+    android:paddingHorizontal="20dp"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:gravity="center">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="50dp"
+            app:strokeColor="@color/white"
+            app:strokeWidth="2dp"
+            android:backgroundTint="@color/white">
+            <ImageView
+                android:id="@+id/profilePic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:background="@drawable/baseline_person_24"/>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:fontFamily="@font/ltcushion_bold"
+        android:gravity="center"
+        android:text="@string/nom_de_user"
+        android:textColor="@color/black"
+        android:layout_weight="26"
+        android:textSize="25dp"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/firstImg"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>

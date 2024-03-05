@@ -4,14 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import android.view.View.OnClickListener
+import androidx.core.content.ContextCompat
+import com.squareup.picasso.Picasso
 
-class ChoixQuizzAdapter(private val context: Context, private var quizz: Array<Quizz>) : BaseAdapter(), OnClickListener
-{
+class ClassementAdapter(private val context: Context, private var users:Array<User>) : BaseAdapter(), OnClickListener {
     companion object {
         private var inflater: LayoutInflater? = null
     }
@@ -20,13 +21,13 @@ class ChoixQuizzAdapter(private val context: Context, private var quizz: Array<Q
         inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
 
-    fun setList(list: Array<Quizz>){
-        quizz = list
+    fun setList(list: Array<User>){
+        users = list
         notifyDataSetChanged()
     }
 
     override fun getCount(): Int {
-        return quizz.size
+        return users.size
     }
 
     override fun getItem(position: Int): Any {
@@ -38,36 +39,43 @@ class ChoixQuizzAdapter(private val context: Context, private var quizz: Array<Q
     }
 
     class Holder {
-        lateinit var title: TextView
-        lateinit var img: ImageView
-        lateinit var createur: TextView
+        lateinit var name: TextView
+        lateinit var pp: ImageView
+        lateinit var score: TextView
+        lateinit var tropheefirst: ImageView
     }
 
     private fun initHolder(view: View): Holder {
         val holder = Holder()
-        holder.title = view.findViewById(R.id.quizz_name)
-        holder.img = view.findViewById(R.id.playImg)
-        holder.createur = view.findViewById(R.id.createurName)
-        holder.title.maxLines = 1
-        holder.title.isSelected = true
-        holder.title.isSingleLine = true
-        holder.title.isFocusable = true
-        holder.title.isFocusableInTouchMode = true
+        holder.name = view.findViewById(R.id.user_name)
+        holder.pp = view.findViewById(R.id.profilePic)
+        holder.score = view.findViewById(R.id.score)
+        holder.tropheefirst = view.findViewById(R.id.firstImg)
+        holder.name.maxLines = 1
+        holder.name.isSelected = true
+        holder.name.isSingleLine = true
+        holder.name.isFocusable = true
+        holder.name.isFocusableInTouchMode = true
         return holder
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var cv = convertView
         if (cv == null) {
-            cv = inflater!!.inflate(R.layout.list_item_layout, parent, false)
+            cv = inflater!!.inflate(R.layout.classement_layout, parent, false)
         }
         val holder = initHolder(cv!!)
-        holder.title.text = quizz[position].Titre
-        holder.img.setOnClickListener(this)
-        holder.img.setTag(quizz[position].id)
-        holder.createur.setOnClickListener(this)
-        holder.createur.text = quizz[position].pseudoCreateur
-        holder.createur.setTag(quizz[position].Createur)
+        holder.name.text = users[position].pseudo
+        holder.name.setOnClickListener(this)
+        holder.name.setTag(users[position].uid)
+        if (!users[position].pp.isNullOrEmpty()){
+            Picasso.with(context).load(users[position].pp).into(holder.pp)
+        }
+        if (position == 0){
+            holder.tropheefirst.background = ContextCompat.getDrawable(context, R.drawable.trophee)
+        }
+        holder.score.text = users[position].totalscore.toString()
+
         return cv
     }
 
@@ -84,12 +92,7 @@ class ChoixQuizzAdapter(private val context: Context, private var quizz: Array<Q
                     scaleXBy(-.2f)
                     scaleYBy(-.2f)
                 }
-                if (v.id == R.id.playImg){
-                    val i = Intent(context, QuizzGame::class.java)
-                    i.putExtra("docId", v.tag.toString())
-                    context.startActivity(i)
-                }
-                else if (v.id == R.id.createurName){
+                if (v.id == R.id.user_name){
                     val i = Intent(context, Profil()::class.java)
                     i.putExtra("docId", v.tag.toString())
                     context.startActivity(i)
@@ -97,5 +100,4 @@ class ChoixQuizzAdapter(private val context: Context, private var quizz: Array<Q
             }.start()
         }
     }
-
 }

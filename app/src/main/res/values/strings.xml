@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">QuizzProj</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Quiz">Quiz</string>
+    <string name="searchByTag">Rechercher par tags</string>
+    <string name="classement">Classement</string>
+    <string name="mesQuiz">Mes quiz</string>
+    <string name="createQuiz">Créer un quizz</string>
+    <string name="amis">Amis</string>
+    <string name="renseignerLogin">Renseignez vos logins</string>
+    <string name="seConnecter">Se connecter</string>
+    <string name="sessionInvite">Session invité</string>
+    <string name="sinscrire">S\'inscrire</string>
+    <string name="stars">Stars:</string>
+    <string name="renseignerIdentifiants">Renseignez vos identifiants</string>
+    <string name="nom_de_user">nom_de_user</string>
+    <string name="nom_du_quizz">nom_du_quizz</string>
+    <string name="pasdimage">Pas d\'image</string>
+    <string name="prendrePhoto">Prendre une photo</string>
+    <string name="choisirFichier">Choisir un fichier</string>
+    <string name="confirmer">Confirmer</string>
+    <string name="nom_du_createur">nom_du_createur</string>
+    <string name="nom_de_lami">nom_de_lami</string>
+    <string name="fermer">Fermer</string>
+    <string name="resultats">Résultats</string>
+    <string name="invité">Invité</string>
+    <string name="reponse">reponse</string>
+    <string name="valider">Valider</string>
+    <string name="titre">titre</string>
+    <string name="question">Question ?</string>
 </resources>

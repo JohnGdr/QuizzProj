@@ -9,52 +9,27 @@
     android:layout_height="match_parent"
     android:background="@color/another_blue"
     android:orientation="vertical"
-    tools:context=".ChoixQuizz">
+    tools:context=".Friends">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/title_background_border">
-            <ImageView
-                android:id="@+id/menu"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/baseline_menu_24"
-                android:layout_margin="10dp"/>
-            <TextView
-                android:id="@+id/titleView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Quiz"
-                android:textSize="40dp"
-                android:fontFamily="@font/ltcushion_bold"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:paddingBottom="20dp"
-              />
-        </RelativeLayout>
-
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonRechercher"
+        <TextView
+            android:id="@+id/titleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/kind_of_blue"
-            android:text="@string/searchByTag"
+            android:text="@string/amis"
+            android:textSize="40dp"
+            android:fontFamily="@font/ltcushion_bold"
             android:textColor="@color/white"
-            android:padding="10dp"
             android:gravity="center"
-            android:layout_marginRight="100dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginLeft="100dp"/>
+            android:paddingBottom="20dp"
+            android:background="@drawable/title_background_border"/>
 
         <ListView
-            android:id="@+id/listViewQuizz"
+            android:id="@+id/listViewFriends"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -63,7 +38,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:clipToPadding="false"
-            tools:listitem="@layout/list_item_layout"/>
+            tools:listitem="@layout/list_item_layout_friends"/>
 
     </LinearLayout>
 
@@ -97,7 +72,5 @@
             app:menu="@menu/nav_menu" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
-
-
 
 </RelativeLayout>

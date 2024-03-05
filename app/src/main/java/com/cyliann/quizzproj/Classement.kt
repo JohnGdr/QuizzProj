@@ -1,5 +1,5 @@
 package com.cyliann.quizzproj
-import android.app.AlertDialog
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,24 +13,23 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.Query
 
-
-class ChoixQuizz : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private lateinit var listAdapter: ChoixQuizzAdapter
+class Classement: BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private lateinit var listAdapter: ClassementAdapter
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var profilePic: ImageView
     private lateinit var pseudoUnderPP: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_choix_quizz)
+        setContentView(R.layout.activity_classement)
 
-        listAdapter = ChoixQuizzAdapter(this, arrayOf())
+        listAdapter = ClassementAdapter(this, arrayOf())
         supportActionBar?.hide()
 
-        getQuizz(mutableListOf())
 
         val window: Window = getWindow()
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -39,20 +38,14 @@ class ChoixQuizz : BaseActivity(), NavigationView.OnNavigationItemSelectedListen
         window.statusBarColor = getResources().getColor(R.color.dark_blue)
 
 
-        val listView = findViewById<ListView>(R.id.listViewQuizz)
+        val listView = findViewById<ListView>(R.id.listViewUser)
         listView.adapter = listAdapter
 
-        val buttonRechercher = findViewById<com.google.android.material.button.MaterialButton>(R.id.buttonRechercher)
-
-        buttonRechercher.setOnClickListener {
-            showTagSelectionDialog()
-        }
-
-
+        getUsersScore()
 
         drawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.z = -1F
-        drawerLayout.addDrawerListener(object: DrawerListener{
+        drawerLayout.addDrawerListener(object: DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 drawerLayout.z = 1F
             }
@@ -66,85 +59,34 @@ class ChoixQuizz : BaseActivity(), NavigationView.OnNavigationItemSelectedListen
             override fun onDrawerStateChanged(newState: Int) {}
         })
 
-        val buttonMenu = findViewById<ImageView>(R.id.menu)
-        buttonMenu.isClickable = true
-        
-        buttonMenu.setOnClickListener{
-            drawerLayout.z = 1F
-        }
-
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
-
-        profilePic = navigationView.getHeaderView(0).findViewById<ImageView>(R.id.profilePic)
-        pseudoUnderPP = navigationView.getHeaderView(0).findViewById<TextView>(R.id.pseudoUnderPP)
-        if (auth.currentUser != null)
-            loadUserInfo(profilePic, pseudoUnderPP, null, true, null)
     }
 
-    private fun showTagSelectionDialog() {
-        var checkedTags = BooleanArray(tags.size)
-        var checkedTagsName = mutableListOf<String>()
-
-        val builder = AlertDialog.Builder(this, R.style.AlertDialogCustom)
-        builder.setTitle("Sélectionner les tags")
-            .setMultiChoiceItems(tags.toTypedArray(), checkedTags) { dialog, which, isChecked ->
-                if (isChecked){
-                    checkedTagsName.add(tags.get(which))
-                }
-            }
-            .setPositiveButton("OK") { dialog, id ->
-                getQuizz(checkedTagsName)
-            }
-            .setNegativeButton("Annuler") { dialog, id ->
-            }
-
-        val dialog = builder.create()
-        dialog.show()
-    }
-    fun getQuizz(query: MutableList<String>) {
-        val quizz_list = mutableListOf<Quizz>()
-
-        val queryRef = if (!query.isNullOrEmpty()) {
-            db.collection("quizz").whereArrayContainsAny("Tags", query)
-        } else {
-            db.collection("quizz")
-        }
-
-        queryRef.get()
+    private fun getUsersScore(){
+        val users = mutableListOf<User>()
+        db.collection("user")
+            .orderBy("totalscore", Query.Direction.DESCENDING) // Trie les documents par totalScore en ordre décroissant
+            .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
                     Log.d("HELLO", "${document.id} => ${document.data}")
-//                    val quizz = Quizz(document.data.get("Titre").toString(),document.id, (document.data.get("Createur")).toString())
-                    val quizz = document.toObject(Quizz::class.java)
-                    quizz.id = document.id
-                    db.collection("user").document(quizz.Createur!!).get().addOnSuccessListener {
-                        val u = it.toObject(User::class.java)!!
-                        quizz.pseudoCreateur = u.pseudo
-                        quizz_list.add(quizz)
-                        listAdapter.setList(quizz_list.toTypedArray())
-                    }
+                    val user = document.toObject(User::class.java)
+                    user.uid = document.id
+                    users.add(user)
                 }
+                listAdapter.setList(users.toTypedArray())
             }
             .addOnFailureListener { exception ->
-                Log.d("Hello", "Error getting documents: ", exception)
+                Log.d("Firestore", "Error getting documents: ", exception)
             }
     }
-
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            if (auth.currentUser != null)
-                FirebaseAuth.getInstance().signOut()
-            super.onBackPressed()
-        }
-
-    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> {
+                val intent = Intent(this, ChoixQuizz::class.java)
+                finish()
+                startActivity(intent)
             }
             R.id.nav_profil -> {
                 if(auth.currentUser != null){
@@ -202,5 +144,4 @@ class ChoixQuizz : BaseActivity(), NavigationView.OnNavigationItemSelectedListen
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
-
 }

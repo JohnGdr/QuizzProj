@@ -16,7 +16,7 @@
         android:maxWidth="200dp"
         android:maxHeight="200dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/baseline_quiz_24"/>
+        android:src="@drawable/baseline_quiz_24_black"/>
 
     <View
         android:layout_width="300dp"
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:textSize="20dp"
             android:layout_height="wrap_content"
-            android:text="Renseignez vos logins"/>
+            android:text="@string/renseignerLogin"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
             android:id="@+id/connectButton"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="Se connecter"
+            android:text="@string/seConnecter"
             android:textColor="@color/white"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/kind_of_blue"
@@ -86,7 +86,7 @@
             android:id="@+id/guestButton"
             android:layout_width="135dp"
             android:layout_height="wrap_content"
-            android:text="Session invité"
+            android:text="@string/sessionInvite"
             android:textColor="@color/white"
             android:backgroundTint="@color/kind_of_blue"
             android:layout_gravity="center_horizontal"/>
@@ -95,7 +95,7 @@
             android:id="@+id/signupText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="S'inscrire"
+            android:text="@string/sinscrire"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="16sp"

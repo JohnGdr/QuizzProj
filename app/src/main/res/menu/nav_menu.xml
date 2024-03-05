@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/baseline_home_24"
+            android:title="Home"/>
+
+        <item
+            android:id="@+id/nav_profil"
+            android:icon="@drawable/baseline_person_24"
+            android:title="Profil"/>
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/baseline_settings_24"
+            android:title="Paramètres"/>
+
+        <item
+            android:id="@+id/nav_friends"
+            android:icon="@drawable/baseline_people_alt_24"
+            android:title="Vos amis"/>
+
+        <item
+            android:id="@+id/nav_ppChange"
+            android:icon="@drawable/baseline_add_a_photo_24"
+            android:title="Modifier photo de profil"/>
+
+        <item
+            android:id="@+id/nav_myQuizz"
+            android:icon="@drawable/baseline_quiz_24"
+            android:title="Mes quizz"/>
+
+        <item
+            android:id="@+id/nav_classement"
+            android:icon="@drawable/baseline_star_rate_24"
+            android:title="Classement"/>
+    </group>
+    <item
+        android:title="">
+
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/baseline_logout_24"
+                android:title="Logout"/>
+        </menu>
+
+    </item>
+
+</menu>

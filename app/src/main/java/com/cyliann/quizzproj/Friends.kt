@@ -1,8 +1,8 @@
 package com.cyliann.quizzproj
+
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.Window
@@ -13,24 +13,26 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.squareup.picasso.Picasso
 
-
-class ChoixQuizz : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private lateinit var listAdapter: ChoixQuizzAdapter
+class Friends: BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private lateinit var listAdapter: FriendsAdapter
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var profilePic: ImageView
     private lateinit var pseudoUnderPP: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_choix_quizz)
+        setContentView(R.layout.activity_friends)
 
-        listAdapter = ChoixQuizzAdapter(this, arrayOf())
+        listAdapter = FriendsAdapter(this, arrayOf(), this)
+        val listView = findViewById<ListView>(R.id.listViewFriends)
+        listView.adapter = listAdapter
+
+        getFriendsUID()
+
         supportActionBar?.hide()
-
-        getQuizz(mutableListOf())
 
         val window: Window = getWindow()
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -38,21 +40,9 @@ class ChoixQuizz : BaseActivity(), NavigationView.OnNavigationItemSelectedListen
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window.statusBarColor = getResources().getColor(R.color.dark_blue)
 
-
-        val listView = findViewById<ListView>(R.id.listViewQuizz)
-        listView.adapter = listAdapter
-
-        val buttonRechercher = findViewById<com.google.android.material.button.MaterialButton>(R.id.buttonRechercher)
-
-        buttonRechercher.setOnClickListener {
-            showTagSelectionDialog()
-        }
-
-
-
         drawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.z = -1F
-        drawerLayout.addDrawerListener(object: DrawerListener{
+        drawerLayout.addDrawerListener(object: DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 drawerLayout.z = 1F
             }
@@ -66,13 +56,6 @@ class ChoixQuizz : BaseActivity(), NavigationView.OnNavigationItemSelectedListen
             override fun onDrawerStateChanged(newState: Int) {}
         })
 
-        val buttonMenu = findViewById<ImageView>(R.id.menu)
-        buttonMenu.isClickable = true
-        
-        buttonMenu.setOnClickListener{
-            drawerLayout.z = 1F
-        }
-
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
 
@@ -80,71 +63,75 @@ class ChoixQuizz : BaseActivity(), NavigationView.OnNavigationItemSelectedListen
         pseudoUnderPP = navigationView.getHeaderView(0).findViewById<TextView>(R.id.pseudoUnderPP)
         if (auth.currentUser != null)
             loadUserInfo(profilePic, pseudoUnderPP, null, true, null)
+
     }
 
-    private fun showTagSelectionDialog() {
-        var checkedTags = BooleanArray(tags.size)
-        var checkedTagsName = mutableListOf<String>()
-
-        val builder = AlertDialog.Builder(this, R.style.AlertDialogCustom)
-        builder.setTitle("Sélectionner les tags")
-            .setMultiChoiceItems(tags.toTypedArray(), checkedTags) { dialog, which, isChecked ->
-                if (isChecked){
-                    checkedTagsName.add(tags.get(which))
+    private fun getFriendsUID(){
+        db.collection("user").document(auth.currentUser!!.uid).get()
+            .addOnSuccessListener { document ->
+            if (document != null) {
+                // Accédez aux données du document
+                val data = document.data
+                if (data != null) {
+                    val user = document.toObject(User::class.java)
+                    user!!.uid = document.id
+                    getFriends(user)
+                } else {
+                    println("Aucune donnée trouvée dans le document")
                 }
+            } else {
+                println("Aucun document trouvé")
             }
-            .setPositiveButton("OK") { dialog, id ->
-                getQuizz(checkedTagsName)
-            }
-            .setNegativeButton("Annuler") { dialog, id ->
-            }
-
-        val dialog = builder.create()
-        dialog.show()
-    }
-    fun getQuizz(query: MutableList<String>) {
-        val quizz_list = mutableListOf<Quizz>()
-
-        val queryRef = if (!query.isNullOrEmpty()) {
-            db.collection("quizz").whereArrayContainsAny("Tags", query)
-        } else {
-            db.collection("quizz")
         }
+    }
 
-        queryRef.get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d("HELLO", "${document.id} => ${document.data}")
-//                    val quizz = Quizz(document.data.get("Titre").toString(),document.id, (document.data.get("Createur")).toString())
-                    val quizz = document.toObject(Quizz::class.java)
-                    quizz.id = document.id
-                    db.collection("user").document(quizz.Createur!!).get().addOnSuccessListener {
-                        val u = it.toObject(User::class.java)!!
-                        quizz.pseudoCreateur = u.pseudo
-                        quizz_list.add(quizz)
-                        listAdapter.setList(quizz_list.toTypedArray())
+    private fun getFriends(user: User){
+        var friends_list = mutableListOf<User>()
+        for (uid in user.friendsList){
+            db.collection("user").document(uid).get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        // Accédez aux données du document
+                        val data = document.data
+                        if (data != null) {
+                            val friend = document.toObject(User::class.java)
+                            friend!!.uid = document.id
+                            friends_list.add(friend)
+                            listAdapter.setList(friends_list.toTypedArray())
+
+                        } else {
+                            println("Aucune donnée trouvée dans le document")
+                        }
+                    } else {
+                        println("Aucun document trouvé")
                     }
                 }
-            }
-            .addOnFailureListener { exception ->
-                Log.d("Hello", "Error getting documents: ", exception)
-            }
+        }
     }
 
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            if (auth.currentUser != null)
-                FirebaseAuth.getInstance().signOut()
-            super.onBackPressed()
+    fun showConfirmationDialog(id : String) {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle("Confirmation")
+        alertDialogBuilder.setMessage("Êtes-vous sûr de vouloir supprimer cet ami ?")
+        alertDialogBuilder.setPositiveButton("Oui") { dialog, which ->
+            deleteFriend(id)
+        }
+        alertDialogBuilder.setNegativeButton("Annuler") { dialog, which ->
+
+        }
+        alertDialogBuilder.setOnCancelListener {
+
         }
 
+        val alertDialog: AlertDialog = alertDialogBuilder.create()
+        alertDialog.show()
     }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> {
+                val intent = Intent(this, ChoixQuizz::class.java)
+                finish()
+                startActivity(intent)
             }
             R.id.nav_profil -> {
                 if(auth.currentUser != null){

@@ -5,6 +5,7 @@ plugins {
 }
 
 android {
+
     namespace = "com.cyliann.quizzproj"
     compileSdk = 34
 
@@ -54,4 +55,6 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation ("com.google.firebase:firebase-storage-ktx")
+    implementation ("com.squareup.picasso:picasso:2.5.2")
 }
