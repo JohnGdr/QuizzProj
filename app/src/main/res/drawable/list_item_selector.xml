@@ -1,0 +1,21 @@
+<!-- res/drawable/list_item_selector.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#E0E0E0" /> <!-- Couleur de fond lorsque l'élément est pressé -->
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#E0E0E0" /> <!-- Couleur de fond lorsque l'élément est en surbrillance -->
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" /> <!-- Couleur de fond par défaut -->
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+</selector>

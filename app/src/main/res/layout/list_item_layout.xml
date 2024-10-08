@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/list_item_selector"
+        android:backgroundTint="#B0C4DE">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:padding="20dp"
+            android:background="@drawable/list_item_selector"
+            android:backgroundTint="#B0C4DE">
+
+            <TextView
+                android:id="@+id/quizz_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ltcushion_bold"
+                android:text="@string/nom_du_quizz"
+                android:textColor="#09C203"
+                android:textSize="25sp"/>
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:padding="20dp"
+
+            android:id="@+id/createurName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ltcushion_bold"
+            android:text="@string/nom_du_createur"
+            android:layout_alignParentBottom="true"
+            android:textSize="12sp"
+            android:textColor="@color/black"/>
+
+        <ImageView
+            android:id="@+id/playImg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/play_button"/>
+
+    </RelativeLayout>
+
+    <Space
+        android:layout_height="15dp"
+        android:layout_width="15dp"/>
+
+</LinearLayout>

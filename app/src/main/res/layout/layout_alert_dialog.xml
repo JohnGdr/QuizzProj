@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textViewMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pasdimage"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:padding="16dp"
+        android:textColor="@color/black"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonPhoto"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content"
+            android:text="@string/prendrePhoto" />
+
+        <Button
+            android:id="@+id/buttonUpload"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_height="wrap_content"
+            android:text="@string/choisirFichier"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonConfirm"
+        android:text="@string/confirmer"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_width="200dp"
+        android:layout_gravity="center"/>
+</LinearLayout>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/another_blue">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="176dp"
+        android:gravity="bottom"
+        android:padding="16dp"
+        android:background="@drawable/title_background_border"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        tools:context=".Profil">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/black"
+            app:cardBackgroundColor="@color/black"
+            app:cardCornerRadius="50dp"
+            app:strokeColor="@color/Green"
+            app:strokeWidth="2dp">
+
+            <ImageView
+                android:id="@+id/profilePicProfil"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/baseline_person_24" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/pseudoUnderPPProfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Invité"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="175dp">
+
+        <ListView
+            android:id="@+id/listViewQuizz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:clipToPadding="false"
+            tools:listitem="@layout/created_quizz_layout"/>
+    </LinearLayout>
+    <androidx.drawerlayout.widget.DrawerLayout
+
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        tools:openDrawer="start"
+        android:orientation="vertical">
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/Green"
+            app:headerLayout="@layout/nav_header"
+            app:itemIconTint="@color/black"
+            app:itemTextColor="@color/black"
+            app:menu="@menu/nav_menu" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+</RelativeLayout>

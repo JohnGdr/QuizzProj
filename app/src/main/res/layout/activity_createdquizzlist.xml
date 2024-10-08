@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/another_blue"
+    android:orientation="vertical"
+    tools:context=".ChoixQuizz">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/titleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mesQuiz"
+            android:textSize="40dp"
+            android:fontFamily="@font/ltcushion_bold"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:paddingBottom="20dp"
+            android:background="@drawable/title_background_border"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonCreate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/kind_of_blue"
+            android:text="@string/createQuiz"
+            android:textColor="@color/white"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_marginRight="100dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginLeft="100dp"/>
+
+        <ListView
+            android:id="@+id/listViewQuizz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:clipToPadding="false"
+            tools:listitem="@layout/created_quizz_layout"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_container"/>
+    </LinearLayout>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        tools:openDrawer="start"
+        android:orientation="vertical">
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/nav_header"
+            android:background="#E9034AC2"
+            app:itemIconTint="@color/white"
+            app:itemTextColor="@color/white"
+            app:menu="@menu/nav_menu" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
+
+</RelativeLayout>
